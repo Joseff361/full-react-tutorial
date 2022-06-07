@@ -4,6 +4,7 @@ function App() {
   const title = 'Welcome to the new blog';
   const likes = 50;
   const link = 'http://google.com';
+  // We cannot bind objects or booleans
   const person = { name: 'Joshi', age: '30' };
 
   return (

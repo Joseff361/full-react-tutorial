@@ -1,21 +1,23 @@
-const Home = () => {
-  const handleClick = e => {
-    console.log('Hello ninjas', e);
-  };
+import { useState } from 'react';
 
-  const handleClickMeAgain = (name, e) => {
-    console.log('Hello, ' + name, e);
+const Home = () => {
+  //let name = 'Mario';
+
+  const [name, setName] = useState('Mario');
+  const [age, setAge] = useState(25);
+
+  const handleClick = e => {
+    setName('Luigi');
+    setAge(30);
   };
 
   return (
     <div className="home">
       <h2>Home Page</h2>
-      {/* Just a reference of the function. React will execute the function */}
+      <p>
+        {name} is {age} years old
+      </p>
       <button onClick={handleClick}>Click me</button>
-      {/* Wrapping in anonymous function to pass paramenters */}
-      <button onClick={e => handleClickMeAgain('Mario', e)}>
-        Click me again
-      </button>
     </div>
   );
 };
