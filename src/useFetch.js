@@ -7,9 +7,11 @@ const useFetch = url => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchBlogs = async () => {
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, { signal: abortCont.signal });
 
         if (!res.ok) throw Error("Coudn't fetch the data for that resource");
 
@@ -22,12 +24,20 @@ const useFetch = url => {
         // then it isn't a error for the catcher
         // because it's still reaching the server
         // in those cases we need to check the status of the response obj
-        setIspending(false);
-        setError(err.message);
+        if (err.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          setIspending(false);
+          setError(err.message);
+        }
       }
     };
 
     fetchBlogs();
+
+    // abort on unmount for cleanup
+    // But we don't need this beacuase react do it for us
+    // return () => abortCont.abort();
   }, [url]);
 
   return { data, isPending, error };
