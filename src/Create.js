@@ -23,11 +23,11 @@ const Create = () => {
         body: JSON.stringify(blog),
       });
       console.log(resp);
+      history.push('/');
     } catch (err) {
       console.log(err);
     } finally {
       setIsPending(false);
-      history.push('/');
     }
   };
 
